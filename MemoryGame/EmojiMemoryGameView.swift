@@ -12,7 +12,7 @@ struct EmojiMemoryGameView: View {
                     withAnimation(.linear(duration: cardRotationDuration)){
                         viewModel.choose(card: card)
                     }
-                }.onTapGesture(perform: checkGameFinished)
+                }
                 .padding(cardViewPadding)
             }
             
