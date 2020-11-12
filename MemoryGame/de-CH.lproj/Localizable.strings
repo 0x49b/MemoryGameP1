@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  MemoryGame
+
+  Created by Florian Thiévent on 11.11.20.
+  Copyright © 2020 fhnw. All rights reserved.
+*/
+
+"SELECT_MODE" = "Schwierigkeit wählen";
+"START_GAME" = "Nach unten streichen um zu starten";
+"EASY" = "leicht";
+"NORMAL" = "normal";
+"HARD" = "schwierig";
