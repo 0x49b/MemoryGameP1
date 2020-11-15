@@ -5,9 +5,12 @@
   Created by Florian Thiévent on 11.11.20.
   Copyright © 2020 fhnw. All rights reserved.
 */
-
+"DEV_INFO" = "Emoji Memory Game entwickelt für den iOS Kurs @ FHNW\nvon Roger Kreienbühl & Florian Thiévent";;
 "SELECT_MODE" = "Schwierigkeit wählen";
-"START_GAME" = "Nach unten streichen um zu starten";
+"START_GAME" = "Spiel starten";
 "EASY" = "leicht";
 "NORMAL" = "normal";
 "HARD" = "schwierig";
+"SELECT_IMAGES"="Bildauswahl";
+"CONTACTS"="Kontakte";
+"POINTS_LABEL" = "Punktzahl: ";

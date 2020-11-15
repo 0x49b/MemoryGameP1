@@ -15,15 +15,6 @@ struct EmojiMemoryGameView: View {
                 }
                 .padding(cardViewPadding)
             }
-            
-            Button(action: {
-                self.showingSettings.toggle()
-            }, label: {
-                Image("settings")
-            }).sheet(isPresented: $showingSettings, content: {
-                SettingsView()
-            })
-            
         }
         .foregroundColor(Color.blue)
     }
