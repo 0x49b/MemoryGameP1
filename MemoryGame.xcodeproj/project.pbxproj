@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		171518FD255C8089009F87AA /* SettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171518FB255C8089009F87AA /* SettingsTab.swift */; };
+		171518FD255C8089009F87AA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171518FB255C8089009F87AA /* SettingsView.swift */; };
 		17151906255C8345009F87AA /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 17151905255C8345009F87AA /* assets */; };
-		17375E0D256122BC00B09DAC /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17375E0C256122BC00B09DAC /* TabBarView.swift */; };
-		17375E152561236D00B09DAC /* FavoritesTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17375E142561236D00B09DAC /* FavoritesTab.swift */; };
 		17E67F83255C8B3100932A02 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17E67F85255C8B3100932A02 /* Localizable.strings */; };
 		DE0D7DE724D3FBD800A35B0F /* MemoryGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0D7DE624D3FBD800A35B0F /* MemoryGameModel.swift */; };
 		DE0D7DE924D3FDD900A35B0F /* EmojiMemoryGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0D7DE824D3FDD900A35B0F /* EmojiMemoryGameViewModel.swift */; };
@@ -30,10 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		171518FB255C8089009F87AA /* SettingsTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTab.swift; sourceTree = "<group>"; };
+		171518FB255C8089009F87AA /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		17151905255C8345009F87AA /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = MemoryGame/assets; sourceTree = "<group>"; };
-		17375E0C256122BC00B09DAC /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
-		17375E142561236D00B09DAC /* FavoritesTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTab.swift; sourceTree = "<group>"; };
 		17E67F84255C8B3100932A02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		17E67F87255C8B6B00932A02 /* de-CH */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-CH"; path = "de-CH.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		17E67F88255C8B6B00932A02 /* de-CH */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-CH"; path = "de-CH.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -104,9 +100,7 @@
 				DE8F2B5124ECF41200958892 /* Pie.swift */,
 				DEBA107924CAD20B00D16149 /* Preview Content */,
 				DEBA107324CAD20A00D16149 /* SceneDelegate.swift */,
-				17375E0C256122BC00B09DAC /* TabBarView.swift */,
-				17375E142561236D00B09DAC /* FavoritesTab.swift */,
-				171518FB255C8089009F87AA /* SettingsTab.swift */,
+				171518FB255C8089009F87AA /* SettingsView.swift */,
 			);
 			path = MemoryGame;
 			sourceTree = "<group>";
@@ -199,15 +193,13 @@
 				DE8F2B4C24EAB47600958892 /* Array+Only.swift in Sources */,
 				DE8F2B5024EC135800958892 /* CardView.swift in Sources */,
 				DE692EF424E3EA8500156376 /* GridLayout.swift in Sources */,
-				17375E152561236D00B09DAC /* FavoritesTab.swift in Sources */,
 				DE8F2B5424ECFC9C00958892 /* Cardify.swift in Sources */,
 				DE8F2B4E24EC127A00958892 /* EmojiMemoryGameView.swift in Sources */,
 				DE692EF624E3EB6D00156376 /* Grid.swift in Sources */,
 				DE8F2B5224ECF41200958892 /* Pie.swift in Sources */,
 				DE692EF824E3F35500156376 /* Array+Indentifiable.swift in Sources */,
 				DE0D7DE924D3FDD900A35B0F /* EmojiMemoryGameViewModel.swift in Sources */,
-				17375E0D256122BC00B09DAC /* TabBarView.swift in Sources */,
-				171518FD255C8089009F87AA /* SettingsTab.swift in Sources */,
+				171518FD255C8089009F87AA /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

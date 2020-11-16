@@ -15,6 +15,32 @@ struct EmojiMemoryGameView: View {
                 }
                 .padding(cardViewPadding)
             }
+            HStack{
+                Button(action: {
+                    withAnimation(.easeInOut(duration: gameResetAnimationDuration)){
+                        viewModel.resetGame()
+                    }
+                }, label: {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25, alignment: .center)
+                        .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
+                })
+                Button(action: {
+                    withAnimation(.easeInOut(duration: gameResetAnimationDuration)){
+                        self.showingSettings.toggle()
+                    }
+                }, label: {
+                    Image(systemName: "gear")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25, alignment: .center)
+                        .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
+                }).sheet(isPresented: $showingSettings) {
+                    SettingsView(viewModel: self.viewModel, isPresented: self.$showingSettings)
+                }
+            }
         }
         .foregroundColor(Color.blue)
     }
