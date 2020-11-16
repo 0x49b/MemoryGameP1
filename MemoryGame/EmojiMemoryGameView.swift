@@ -6,6 +6,7 @@ struct EmojiMemoryGameView: View {
     @State var showingSettings = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    
     var body: some View {
         VStack{
             Grid(viewModel.cards) { card in
@@ -18,7 +19,6 @@ struct EmojiMemoryGameView: View {
             }
             
             HStack{
-                
                 Button(action: {
                     viewModel.resetGame()
                 }, label: {
@@ -40,6 +40,11 @@ struct EmojiMemoryGameView: View {
                         .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
                         .opacity(1)
                 }).frame(width:50, height: 30)
+                
+                HStack{
+                    Text("POINTS_LABEL")
+                    Text("0")
+                }.foregroundColor(.black)
             }
         }
         .foregroundColor(Color.blue)
