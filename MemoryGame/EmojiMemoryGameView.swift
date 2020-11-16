@@ -4,6 +4,7 @@ struct EmojiMemoryGameView: View {
     
     @ObservedObject var viewModel: EmojiMemoryGameViewModel
     @State var showingSettings = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack{
@@ -15,8 +16,36 @@ struct EmojiMemoryGameView: View {
                 }
                 .padding(cardViewPadding)
             }
+            
+            HStack{
+                
+                Button(action: {
+                    viewModel.resetGame()
+                }, label: {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25, alignment: .center)
+                        .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
+                        .opacity(1)
+                }).frame(width:50, height: 30)
+                               
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Image(systemName: "gear")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25, height: 25, alignment: .center)
+                        .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
+                        .opacity(1)
+                }).frame(width:50, height: 30)
+            }
         }
         .foregroundColor(Color.blue)
+        
+        .navigationBarHidden(true)
+        .navigationBarTitle("")
     }
 }
 
