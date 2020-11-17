@@ -4,13 +4,17 @@ import SwiftUI
 class EmojiMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<String>
+    private var difficulty = 0
     
     init() {
-        model = EmojiMemoryGameViewModel.createMemoryGame()
-    }
+            model = EmojiMemoryGameViewModel.createMemoryGame()
+        }
     
     private static func createMemoryGame()->MemoryGameModel<String>{
-        let emojiis: Array<String> = ["🙈","🙉","🙊","🦊","🐶","🐰","🦄"]
+              
+        let emojiis_raw: Array<String> = ["🦊","🐶","🐰","🦄","🐧", "🐻", "🐳","🐌","🐡","🐙","🐝","🐼","🐭","🐷","🐮","🐔"]
+        let emojiis = emojiis_raw
+        
         return  MemoryGameModel<String>(numberOfPairsOfCards: emojiis.count, cardContentFactory: { pairIndex in
             return emojiis[pairIndex]
         })
@@ -30,7 +34,7 @@ class EmojiMemoryGameViewModel: ObservableObject{
     }
     
     func resetGame(){
-       model = EmojiMemoryGameViewModel.createMemoryGame()
+        model = EmojiMemoryGameViewModel.createMemoryGame()
     }
     
     func gameFinished(){
@@ -42,11 +46,17 @@ class EmojiMemoryGameViewModel: ObservableObject{
                 matched += 1
             }
         }
-        
-        print(matched, " ", cardcount)
-        
-        if(matched == cardcount){
-            
-        }
     }
+
+    func setDifficulty(difficulty: Int){
+        print(difficulty)
+        self.difficulty = difficulty
+    }
+    
+    func getDifficulty() -> Int{
+        return self.difficulty
+    }
+    
+
+    
 }

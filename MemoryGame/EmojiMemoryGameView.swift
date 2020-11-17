@@ -4,6 +4,8 @@ struct EmojiMemoryGameView: View {
     
     @ObservedObject var viewModel: EmojiMemoryGameViewModel
     @State var showingSettings = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     
     var body: some View {
         VStack{
@@ -14,12 +16,10 @@ struct EmojiMemoryGameView: View {
                     }
                 }
                 .padding(cardViewPadding)
-            }
+            } 
             HStack{
                 Button(action: {
-                    withAnimation(.easeInOut(duration: gameResetAnimationDuration)){
-                        viewModel.resetGame()
-                    }
+                    viewModel.resetGame()
                 }, label: {
                     Image(systemName: "arrow.triangle.2.circlepath")
                         .resizable()
@@ -31,6 +31,11 @@ struct EmojiMemoryGameView: View {
                     withAnimation(.easeInOut(duration: gameResetAnimationDuration)){
                         self.showingSettings.toggle()
                     }
+                        .opacity(1)
+                }).frame(width:50, height: 30)
+                               
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Image(systemName: "gear")
                         .resizable()
@@ -40,9 +45,19 @@ struct EmojiMemoryGameView: View {
                 }).sheet(isPresented: $showingSettings) {
                     SettingsView(viewModel: self.viewModel, isPresented: self.$showingSettings)
                 }
+                        .opacity(1)
+                }).frame(width:50, height: 30)
+                
+                HStack{
+                    Text("POINTS_LABEL")
+                    Text("0")
+                }.foregroundColor(.black)
             }
         }
         .foregroundColor(Color.blue)
+        
+        .navigationBarHidden(true)
+        .navigationBarTitle("")
     }
 }
 
