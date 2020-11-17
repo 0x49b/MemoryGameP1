@@ -27,12 +27,7 @@ struct EmojiMemoryGameView: View {
                         .frame(width: 25, height: 25, alignment: .center)
                         .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
                 })
-                Button(action: {
-                    withAnimation(.easeInOut(duration: gameResetAnimationDuration)){
-                        self.showingSettings.toggle()
-                    }
-                        .opacity(1)
-                }).frame(width:50, height: 30)
+                
                                
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
@@ -43,10 +38,10 @@ struct EmojiMemoryGameView: View {
                         .frame(width: 25, height: 25, alignment: .center)
                         .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
                 }).sheet(isPresented: $showingSettings) {
-                    SettingsView(viewModel: self.viewModel, isPresented: self.$showingSettings)
+                    SettingsView()
                 }
                         .opacity(1)
-                }).frame(width:50, height: 30)
+                
                 
                 HStack{
                     Text("POINTS_LABEL")
