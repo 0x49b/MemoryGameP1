@@ -17,6 +17,7 @@ struct SettingsView: View {
     @State var gameModel = 0
     @State var difficulty = 1
     @State var points = 0
+    
       
     var body: some View {
         
@@ -166,7 +167,8 @@ struct SettingsView: View {
                     VStack{
                         NavigationLink(
                             destination:
-                                EmojiMemoryGameView(viewModel: viewModel),
+                                    //EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel()),
+                                    setGameView(),
                             label: {
                                 VStack{
                                     Text("START_GAME")
@@ -218,6 +220,17 @@ struct SettingsView: View {
         }
         
         return 0
+    }
+    
+    @ViewBuilder
+    private func setGameView()->some View{
+        if( self.gameModel == 0){
+            EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel())
+        }else if(self.gameModel == 1){
+            ContactMemoryGameView()
+        }else if(self.gameModel == 2){
+            UnsplashMemoryGameView()
+        }
     }
     
     

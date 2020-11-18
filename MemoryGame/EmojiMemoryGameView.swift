@@ -61,7 +61,8 @@ private let gameResetAnimationDuration = Double(0.5)
 private let cardViewPadding = CGFloat(5)
 
 struct EmojiMemoryGameView_Previews: PreviewProvider {
-        
+
+
     static var previews: some View {
         let game = EmojiMemoryGameViewModel()
         game.choose(card: game.cards[0])
