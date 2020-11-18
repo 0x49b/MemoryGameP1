@@ -6,10 +6,12 @@ class EmojiMemoryGameViewModel: ObservableObject{
     @Published private var model: MemoryGameModel<String>
     @Published private var points: Int
     var difficulty = 0
+    var setPoints: ((Int) -> Void)
     
-    init(difficulty: Int) {
+    init(difficulty: Int, setPoints: @escaping ((Int) -> Void)) {
         model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: difficulty)
         points = 0
+        self.setPoints = setPoints
         self.difficulty = difficulty
     }
     
@@ -60,7 +62,7 @@ class EmojiMemoryGameViewModel: ObservableObject{
         if( matched == cardcount){
             print("all matched, game finished")
             self.points = model.getPoints()
-            
+            self.setPoints(self.points)
         }
         
     }

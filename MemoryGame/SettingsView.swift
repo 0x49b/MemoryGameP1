@@ -200,6 +200,10 @@ struct SettingsView: View {
         
     }
     
+    func setPoints (points: Int) -> Void {
+        self.points = points
+    }
+    
     
     
     //MARK: Items for each level
@@ -221,8 +225,9 @@ struct SettingsView: View {
     
     @ViewBuilder
     private func setGameView()->some View{
+        let highScore: ((Int) -> Void) = setPoints
         if( self.gameModel == 0){
-            EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel(difficulty: numbersOfItems()))
+            EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel(difficulty: numbersOfItems(), setPoints: highScore))
         }else if(self.gameModel == 1){
             ContactMemoryGameView(viewModel: ContactMemoryGameViewModel(difficulty: numbersOfItems()))
         }else if(self.gameModel == 2){
