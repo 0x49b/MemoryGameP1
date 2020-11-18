@@ -19,8 +19,8 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable{
     mutating func choose(card: Card){
         print("card chosen: \(card)")
         if let chosenIndex = cards.firstIndex(matching: card),
-            !cards[chosenIndex].isFaceUp,
-            !cards[chosenIndex].isMatched{
+           !cards[chosenIndex].isFaceUp,
+           !cards[chosenIndex].isMatched{
             
             if let potentialMatchIndex = indexOfFaceUpCard{
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content{
@@ -31,12 +31,10 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable{
                     print(Int(100.0 * cards[chosenIndex].bonusRemaining))
                     
                     if(cards[chosenIndex].hasEarnedBonus){
-                        self.points += (100 + Int(100.0 * cards[chosenIndex].bonusRemaining))
+                        self.points += (100 + Int.random(in: 50..<100))
                     }else{
                         self.points += 100
                     }
-                    
-                
                 }
                 cards[chosenIndex].isFaceUp = true
             }
