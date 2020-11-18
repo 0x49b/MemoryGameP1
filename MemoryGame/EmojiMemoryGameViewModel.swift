@@ -4,19 +4,25 @@ import SwiftUI
 class EmojiMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<String>
-    private var difficulty = 0
+    @Published private var points: Int
     
     init() {
-            model = EmojiMemoryGameViewModel.createMemoryGame()
-        }
+        model = EmojiMemoryGameViewModel.createMemoryGame()
+        points = 0
+    }
+    
     
     private static func createMemoryGame()->MemoryGameModel<String>{
-              
-        let emojiis_raw: Array<String> = ["🦊","🐶","🐰","🦄","🐧", "🐻", "🐳","🐌","🐡","🐙","🐝","🐼","🐭","🐷","🐮","🐔"]
-        let emojiis = emojiis_raw
         
-        return  MemoryGameModel<String>(numberOfPairsOfCards: emojiis.count, cardContentFactory: { pairIndex in
-            return emojiis[pairIndex]
+        let possibleEmojis: Array<String> = ["🦊","🐶","🐰","🦄","🐧", "🐻", "🐳","🐌","🐡","🐙","🐝","🐼","🐭","🐷","🐮","🐔"]
+        var emojis: Array<String> = []
+        
+        for index in 0..<3{
+            emojis.append(possibleEmojis[index])
+        }
+        
+        return  MemoryGameModel<String>(numberOfPairsOfCards: emojis.count, cardContentFactory: { pairIndex in
+            return emojis[pairIndex]
         })
     }
     
@@ -46,17 +52,18 @@ class EmojiMemoryGameViewModel: ObservableObject{
                 matched += 1
             }
         }
+        
+        if( matched == cardcount){
+            print("all matched, game finished")
+            self.points = model.getPoints()
+            
+        }
+        
     }
-
-    func setDifficulty(difficulty: Int){
-        print(difficulty)
-        self.difficulty = difficulty
+            
+    func getPoints()->Int{
+        return model.getPoints()
     }
     
-    func getDifficulty() -> Int{
-        return self.difficulty
-    }
-    
-
     
 }

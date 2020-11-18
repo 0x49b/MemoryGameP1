@@ -3,6 +3,7 @@ import Foundation
 struct MemoryGameModel<CardContent> where CardContent: Equatable{
     
     private(set) var cards: Array<Card>
+    var points = 0
     
     private var indexOfFaceUpCard: Int?{
         get{
@@ -25,6 +26,17 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable{
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content{
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
+                    
+                    print(cards[chosenIndex].bonusRemaining)
+                    print(Int(100.0 * cards[chosenIndex].bonusRemaining))
+                    
+                    if(cards[chosenIndex].hasEarnedBonus){
+                        self.points += (100 + Int(100.0 * cards[chosenIndex].bonusRemaining))
+                    }else{
+                        self.points += 100
+                    }
+                    
+                
                 }
                 cards[chosenIndex].isFaceUp = true
             }
@@ -32,6 +44,10 @@ struct MemoryGameModel<CardContent> where CardContent: Equatable{
                 indexOfFaceUpCard = chosenIndex
             }
         }
+    }
+    
+    func getPoints()-> Int{
+        return self.points
     }
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int)->CardContent){

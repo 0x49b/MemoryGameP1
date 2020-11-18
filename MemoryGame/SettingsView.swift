@@ -17,8 +17,7 @@ struct SettingsView: View {
     @State var gameModel = 0
     @State var difficulty = 1
     @State var points = 0
-    
-    
+      
     var body: some View {
         
         NavigationView{
@@ -27,7 +26,7 @@ struct SettingsView: View {
                 
                 VStack{
                     Text("POINTS_LABEL").font(.system(size:45))
-                    Text(self.points > 0 ? String(self.points) : "n/a" ).font(.system(size: 55))
+                    Text(String(self.points)).font(.system(size: 55))
                 }
                 
                 VStack{
@@ -36,7 +35,6 @@ struct SettingsView: View {
                         // Easy
                         Button(action: {
                             self.difficulty = 0
-                            self.viewModel.setDifficulty(difficulty: numbersOfItems())
                         }, label: {
                             VStack{
                                 Text("EASY")
@@ -56,7 +54,6 @@ struct SettingsView: View {
                         // Normal
                         Button(action: {
                             self.difficulty = 1
-                            self.viewModel.setDifficulty(difficulty: numbersOfItems())
                         }, label: {
                             VStack{
                                 Text("NORMAL")
@@ -75,7 +72,6 @@ struct SettingsView: View {
                         // Hard
                         Button(action: {
                             self.difficulty = 2
-                            self.viewModel.setDifficulty(difficulty: numbersOfItems())
                         }, label: {
                             VStack{
                                 Text("HARD")
