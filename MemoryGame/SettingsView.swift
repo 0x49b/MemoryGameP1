@@ -12,7 +12,6 @@ struct SettingsView: View {
     @State private var modeSelection = 0
     @State private var showNavBar = false
     private let modes: [String] = ["EASY", "MEDIUM", "HARD"]
-    private let viewModel = EmojiMemoryGameViewModel()
     @State var showInfo = false
     @State var gameModel = 0
     @State var difficulty = 1
@@ -210,7 +209,6 @@ struct SettingsView: View {
     private let HORIZONTAL_PADDING = CGFloat(20)
     
     private func numbersOfItems()->Int{
-        
         if(self.difficulty == 0){
             return  EASY
         } else if (self.difficulty == 1){
@@ -218,16 +216,15 @@ struct SettingsView: View {
         } else if (self.difficulty == 2){
             return  HARD
         }
-        
         return 0
     }
     
     @ViewBuilder
     private func setGameView()->some View{
         if( self.gameModel == 0){
-            EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel())
+            EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel(difficulty: numbersOfItems()))
         }else if(self.gameModel == 1){
-            ContactMemoryGameView()
+            ContactMemoryGameView(viewModel: ContactMemoryGameViewModel())
         }else if(self.gameModel == 2){
             UnsplashMemoryGameView()
         }

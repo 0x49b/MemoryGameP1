@@ -5,19 +5,23 @@ class EmojiMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<String>
     @Published private var points: Int
+    var difficulty = 0
     
-    init() {
-        model = EmojiMemoryGameViewModel.createMemoryGame()
+    init(difficulty: Int) {
+        model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: difficulty)
         points = 0
+        self.difficulty = difficulty
     }
     
     
-    private static func createMemoryGame()->MemoryGameModel<String>{
+    private static func createMemoryGame(difficulty: Int)->MemoryGameModel<String>{
         
         let possibleEmojis: Array<String> = ["🦊","🐶","🐰","🦄","🐧", "🐻", "🐳","🐌","🐡","🐙","🐝","🐼","🐭","🐷","🐮","🐔"]
         var emojis: Array<String> = []
         
-        for index in 0..<3{
+        print("difficulty set to ", difficulty)
+        
+        for index in 0..<difficulty{
             emojis.append(possibleEmojis[index])
         }
         
@@ -40,7 +44,7 @@ class EmojiMemoryGameViewModel: ObservableObject{
     }
     
     func resetGame(){
-        model = EmojiMemoryGameViewModel.createMemoryGame()
+        model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: self.difficulty)
     }
     
     func gameFinished(){
