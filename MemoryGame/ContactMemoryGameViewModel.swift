@@ -12,19 +12,27 @@ class ContactMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<String>
     @Published private var points: Int
+    var difficulty = 0
     
-    init() {
-        model = ContactMemoryGameViewModel.createMemoryGame()
+    
+    init(difficulty: Int) {
+        model = ContactMemoryGameViewModel.createMemoryGame(difficulty: difficulty)
         points = 0
+        self.difficulty = difficulty
     }
     
     
-    private static func createMemoryGame()->MemoryGameModel<String>{
+    private static func createMemoryGame(difficulty: Int)->MemoryGameModel<String>{
         
         let possibleEmojis: Array<String> = ["🦄","🐧", "🐻", "🐳","🐌","🐡","🐙","🐝","🐼","🐭","🐷","🐮","🐔"]
         var emojis: Array<String> = []
+        var maxElements = difficulty
         
-        for index in 0..<3{
+        if( possibleEmojis.count < difficulty){
+            maxElements = possibleEmojis.count
+        }
+        
+        for index in 0..<maxElements{
             emojis.append(possibleEmojis[index])
         }
         
@@ -47,7 +55,7 @@ class ContactMemoryGameViewModel: ObservableObject{
     }
     
     func resetGame(){
-        model = ContactMemoryGameViewModel.createMemoryGame()
+        model = ContactMemoryGameViewModel.createMemoryGame(difficulty:difficulty)
     }
     
     func gameFinished(){

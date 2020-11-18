@@ -61,6 +61,6 @@ private let cardViewPadding = CGFloat(5)
 
 struct ContactMemoryGameView_Previews: PreviewProvider {
     static var previews: some View {
-        ContactMemoryGameView(viewModel: ContactMemoryGameViewModel())
+        ContactMemoryGameView(viewModel: ContactMemoryGameViewModel(difficulty:3))
     }
 }
