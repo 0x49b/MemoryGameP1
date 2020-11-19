@@ -15,13 +15,15 @@ class ContactMemoryGameViewModel: ObservableObject{
     @Published private var points: Int
     @Published var loadingContacts: Bool = false
     var difficulty = 0
+    var setPoints: ((Int) -> Void)
     
     
     
-    init(difficulty: Int) {
+    init(difficulty: Int, setPoints: @escaping ((Int) -> Void)) {
         model = MemoryGameModel<UIImage>(numberOfPairsOfCards: 0, cardContentFactory: { pairIndex in return UIImage() })
         points = 0
         self.difficulty = difficulty
+        self.setPoints = setPoints
     }
     
     // developer.apple.com/documentation/contacts
@@ -113,6 +115,7 @@ class ContactMemoryGameViewModel: ObservableObject{
         if( matched == cardcount){
             print("all matched, game finished")
             self.points = model.getPoints()
+            self.setPoints(self.points)
         }
     }
     

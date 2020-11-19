@@ -19,14 +19,16 @@ class UnsplashMemoryGameViewModel: ObservableObject{
     var dispatchGroup = DispatchGroup()
     var difficulty: Int
     @State var points = UserDefaults.standard.integer(forKey: "points")
+    var setPoints: ((Int) -> Void)
     
     struct UnsplashImages: Decodable{
         let urls: Dictionary<String, String>
     }
     
-    init(difficulty: Int) {
+    init(difficulty: Int, setPoints: @escaping ((Int) -> Void)) {
         model = MemoryGameModel<UIImage>(numberOfPairsOfCards: 0, cardContentFactory: { pairIndex in return UIImage() })
         self.difficulty = difficulty
+        self.setPoints = setPoints
     }
     
     private static func createMemoryGame(difficulty: Int)->MemoryGameModel<UIImage>{
@@ -107,6 +109,7 @@ class UnsplashMemoryGameViewModel: ObservableObject{
         if( matched == cardcount){
             print("all matched, game finished")
             self.points = model.getPoints()
+            self.setPoints(self.points)
         }
     }
     
