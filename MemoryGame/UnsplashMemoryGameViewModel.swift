@@ -32,6 +32,7 @@ class UnsplashMemoryGameViewModel: ObservableObject{
     }
     
     private static func createMemoryGame(difficulty: Int)->MemoryGameModel<UIImage>{
+        print("difficulty set to ", difficulty)
         return MemoryGameModel<UIImage>(numberOfPairsOfCards: 0, cardContentFactory: { pairIndex in return UIImage() })
     }
     

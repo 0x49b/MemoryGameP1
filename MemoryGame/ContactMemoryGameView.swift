@@ -10,20 +10,24 @@ struct ContactMemoryGameView: View {
     var body: some View {
         VStack{
             
-
             if(viewModel.loadingContacts){
-                Text("loading contacts")
-            } else {
-            
-            
-            Grid(viewModel.cards) { card in
-                ImageCardView(card: card).onTapGesture {
-                    withAnimation(.linear(duration: cardRotationDuration)){
-                        viewModel.choose(card: card)
-                    }
+                Text("loading contacts").onAppear{
+                    self.loading = true
                 }
-                .padding(cardViewPadding)
+            } else {
+                
+                Grid(viewModel.cards) { card in
+                    ImageCardView(card: card).onTapGesture {
+                        withAnimation(.linear(duration: cardRotationDuration)){
+                            viewModel.choose(card: card)
+                        }
+                    }.onAppear{
+                        self.loading = false
+                    }
+                    .padding(cardViewPadding)
+                }
             }
+            
             HStack{
                 Button(action: {
                     viewModel.resetGame()
@@ -35,7 +39,6 @@ struct ContactMemoryGameView: View {
                         .foregroundColor(Color(red: 32/255, green: 43/255, blue: 63/255))
                 })
                 
-                               
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
@@ -54,12 +57,13 @@ struct ContactMemoryGameView: View {
                     Text(String(self.viewModel.getPoints()))
                 }.foregroundColor(.black)
             }
-        
+            
         }
-        
+        .onAppear {
+            self.loading = true
+            self.viewModel.createMemoryGame(difficulty: self.viewModel.difficulty)
         }
         .foregroundColor(Color.blue)
-        
         .navigationBarHidden(true)
         .navigationBarTitle("")
     }
