@@ -42,8 +42,6 @@
 		17B271B4256279E200CEB4B6 /* ContactMemoryGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactMemoryGameViewModel.swift; sourceTree = "<group>"; };
 		17B271B7256279F400CEB4B6 /* UnsplashMemoryGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashMemoryGameViewModel.swift; sourceTree = "<group>"; };
 		17E67F84255C8B3100932A02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		17E67F87255C8B6B00932A02 /* de-CH */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-CH"; path = "de-CH.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		17E67F88255C8B6B00932A02 /* de-CH */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "de-CH"; path = "de-CH.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		17F3636E2561DB1300398B9B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		DE0D7DE624D3FBD800A35B0F /* MemoryGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGameModel.swift; sourceTree = "<group>"; };
 		DE0D7DE824D3FDD900A35B0F /* EmojiMemoryGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGameViewModel.swift; sourceTree = "<group>"; };
@@ -173,7 +171,6 @@
 			knownRegions = (
 				en,
 				Base,
-				"de-CH",
 			);
 			mainGroup = DEBA106524CAD20A00D16149;
 			productRefGroup = DEBA106F24CAD20A00D16149 /* Products */;
@@ -234,7 +231,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				17E67F84255C8B3100932A02 /* en */,
-				17E67F87255C8B6B00932A02 /* de-CH */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -243,7 +239,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DEBA107D24CAD20B00D16149 /* Base */,
-				17E67F88255C8B6B00932A02 /* de-CH */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
