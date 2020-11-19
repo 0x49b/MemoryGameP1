@@ -5,7 +5,7 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGameViewModel
     @State var showingSettings = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var points = UserDefaults.standard.integer(forKey: "points")
+    @State var points = 0
     
     
     var body: some View {
