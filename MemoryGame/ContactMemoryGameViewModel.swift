@@ -48,7 +48,6 @@ class ContactMemoryGameViewModel: ObservableObject{
                         DispatchQueue.main.async {
                             self.contactImg.append(UIImage(data: imageData) ?? UIImage())
                             print("added photo \(imageData)")
-                            print("contactImageCount1 \(self.contactImg.count)")
                             self.dispatchGroup.leave()
                         }
                         
@@ -72,7 +71,6 @@ class ContactMemoryGameViewModel: ObservableObject{
                 print("to less images on contacts, changing max. new max is \(self.contactImg.count) [old \(difficulty)]")
                 max = self.contactImg.count
             }
-            
             //use the found contacts as cards
             self.model = MemoryGameModel<UIImage>(numberOfPairsOfCards: max, cardContentFactory: { pairIndex in
                 return self.contactImg[pairIndex]
