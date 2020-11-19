@@ -11,11 +11,11 @@ import SwiftUI
 class UnsplashMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<UIImage>
-    @Published var loadingImages: Bool = false
+    @State var loadingImages: Bool = false
     
     let clientID = "iUquyXDAT6u2DujQiBpKOPsxF8OBr-gloj9KcV_kB7w"
     let unsplashBaseUrl = "https://api.unsplash.com/photos/random/?client_id="
-    var unsplashImages: [UIImage] = [UIImage]()
+    private var unsplashImages: [UIImage] = [UIImage]()
     var dispatchGroup = DispatchGroup()
     var difficulty: Int
     @State var points = UserDefaults.standard.integer(forKey: "points")
@@ -31,52 +31,43 @@ class UnsplashMemoryGameViewModel: ObservableObject{
         self.setPoints = setPoints
     }
     
-    private static func createMemoryGame(difficulty: Int)->MemoryGameModel<UIImage>{
-        print("difficulty set to ", difficulty)
-        return MemoryGameModel<UIImage>(numberOfPairsOfCards: 0, cardContentFactory: { pairIndex in return UIImage() })
-    }
     
     //https://www.hackingwithswift.com/forums/swiftui/loading-images/3292
     func loadUnsplashImages(difficulty: Int){
-        
+        print("difficulty set to ", difficulty)
         loadingImages = true
         unsplashImages.removeAll()
         
         let composedURL = "\(self.unsplashBaseUrl)\(self.clientID)&count=\(String(difficulty))"
         print(composedURL)
+        
+        
         if let imageURL = URL(string: composedURL){
             
             self.dispatchGroup.enter()
-            URLSession.shared.dataTask(with: imageURL){ (data, response, error) in
-                if let data = data {
-                    do{
-                        for i in 0..<difficulty{
-                            
-                            print(i)
-                            
+            URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                  if let data = data {
+                      do {
+                        for i in 0..<difficulty {
                             self.dispatchGroup.enter()
-                            let resp = try JSONDecoder().decode([UnsplashImages].self, from: data)
-                            let imageURL_ = URL(string: resp[i].urls["small"]!)
-                            
-                            print(imageURL_?.absoluteURL)
-                            
-                            if let imageLocation = imageURL_{
-                                print(imageLocation)
+                            let res = try JSONDecoder().decode([UnsplashImages].self, from: data)
+                            let imgurl = URL(string: res[i].urls["small"]!)
+                            if let url = imgurl {
                                 DispatchQueue.global(qos: .userInitiated).async {
-                                    if let image = try? Data(contentsOf: imageLocation){
+                                    if let imageData = try? Data(contentsOf: url) {
                                         DispatchQueue.main.async {
-                                            self.unsplashImages.append(UIImage(data: image)!)
+                                            self.unsplashImages.append(UIImage(data: imageData)!)
                                             self.dispatchGroup.leave()
                                         }
                                     }
                                 }
                             }
-                            self.dispatchGroup.leave()
                         }
-                    } catch{
-                        print("noot noot")
-                    }
-                }
+                        self.dispatchGroup.leave()
+                      } catch {
+                         print("noot noot")
+                      }
+                   }
             }.resume()
         }
             
@@ -91,11 +82,8 @@ class UnsplashMemoryGameViewModel: ObservableObject{
                     return self.unsplashImages[pairIndex]
                     
                 })
-                loadingImages = false
+                self.loadingImages = false
             }
-
-        
-        
     }
     
     // MARK: - Access to the Model

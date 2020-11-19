@@ -13,16 +13,13 @@ struct UnsplashMemoryGameView: View {
     @ObservedObject var viewModel: UnsplashMemoryGameViewModel
     @State var showingSettings = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var loading: Bool = false
+    
     
     var body: some View {
         VStack{
-            
-            
-            if(viewModel.loadingImages){
+            if viewModel.loadingImages{
                 Text("loading images")
             } else {
-                
                 Grid(viewModel.cards) { card in
                     ImageCardView(card: card).onTapGesture {
                         withAnimation(.linear(duration: cardRotationDuration)){
