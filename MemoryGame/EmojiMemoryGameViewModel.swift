@@ -4,16 +4,16 @@ import SwiftUI
 class EmojiMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<String>
-    @State var points = UserDefaults.standard.integer(forKey: "points")
+    @State var points: Int
     var difficulty = 0
     let defaults = UserDefaults.standard
-    var setPoints: ((Int) -> Void)
+    var setHighscore: ((Int) -> Void)
 
     
-    init(difficulty: Int, setPoints: @escaping ((Int) -> Void)) {
+    init(difficulty: Int, setHighscore: @escaping ((Int) -> Void)) {
         model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: difficulty)
-        points = 0
-        self.setPoints = setPoints
+        self.points = 0
+        self.setHighscore = setHighscore
         self.difficulty = difficulty
     }
     
@@ -44,15 +44,16 @@ class EmojiMemoryGameViewModel: ObservableObject{
     
     func choose(card: MemoryGameModel<String>.Card){
         model.choose(card: card)
-        gameFinished()
+        self.gameFinished()
     }
     
     func resetGame(){
-        self.defaults.set(0, forKey: "points")
         model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: self.difficulty)
     }
     
     func gameFinished(){
+        let pts = model.getPoints()
+        print(model.getPoints())
         var matched = 0
         let cardcount = model.cards.count
         for index in 0..<cardcount{
@@ -64,10 +65,8 @@ class EmojiMemoryGameViewModel: ObservableObject{
         
         if( matched == cardcount){
             print("all matched, game finished")
-            self.points = model.getPoints()
-            self.defaults.set(self.points, forKey: "points")
-            setHighscore()
-            self.setPoints(self.points)
+            print("points: \(pts)")
+            self.setHighscore(pts)
         }
         
     }
@@ -75,13 +74,5 @@ class EmojiMemoryGameViewModel: ObservableObject{
     func getPoints()->Int{
         return model.getPoints()
     }
-    
-    func setHighscore(){
-        let highscore = self.defaults.integer(forKey: "highscore")
-        if(self.points > highscore){
-            self.defaults.set(self.points, forKey: "highscore")
-        }
-    }
-    
     
 }

@@ -45,7 +45,7 @@ struct EmojiMemoryGameView: View {
                 
                 HStack{
                     Text("POINTS_LABEL")
-                    Text(String(points))
+                    Text(String(self.viewModel.getPoints()))
                 }.foregroundColor(.black)
             }
         }
