@@ -234,9 +234,9 @@ struct SettingsView: View {
         if( self.gameModel == 0){
             EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel(difficulty: numbersOfItems(), setPoints: highScore))
         }else if(self.gameModel == 1){
-            ContactMemoryGameView(viewModel: ContactMemoryGameViewModel(difficulty: numbersOfItems()))
+            ContactMemoryGameView(viewModel: ContactMemoryGameViewModel(difficulty: numbersOfItems(), setPoints: highScore))
         }else if(self.gameModel == 2){
-            UnsplashMemoryGameView(viewModel: UnsplashMemoryGameViewModel(difficulty: numbersOfItems()))
+            UnsplashMemoryGameView(viewModel: UnsplashMemoryGameViewModel(difficulty: numbersOfItems(), setPoints: highScore))
         }
     }
     
