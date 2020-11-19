@@ -13,7 +13,7 @@ class ContactMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<UIImage>
     @Published private var points: Int
-    @Published var loadingContacts: Bool = false
+    @State var loadingContacts: Bool = false
     var difficulty = 0
     var setPoints: ((Int) -> Void)
     @Published private var contactImg: [UIImage] = [UIImage]()
@@ -48,9 +48,10 @@ class ContactMemoryGameViewModel: ObservableObject{
                         DispatchQueue.main.async {
                             self.contactImg.append(UIImage(data: imageData) ?? UIImage())
                             print("added photo \(imageData)")
+                            print("contactImageCount1 \(self.contactImg.count)")
                             self.dispatchGroup.leave()
                         }
-                        print("contactImageCount1 \(self.contactImg.count)")
+                        
                     }
                 }
             })
@@ -71,12 +72,13 @@ class ContactMemoryGameViewModel: ObservableObject{
                 print("to less images on contacts, changing max. new max is \(self.contactImg.count) [old \(difficulty)]")
                 max = self.contactImg.count
             }
+            
             //use the found contacts as cards
             self.model = MemoryGameModel<UIImage>(numberOfPairsOfCards: max, cardContentFactory: { pairIndex in
-                return self.contactImg[pairIndexNumbers[pairIndex]]
+                return self.contactImg[pairIndex]
             })
+            self.loadingContacts = false
         }
-        self.loadingContacts = false
     }
     
     // MARK: - Access to the Model
