@@ -69,9 +69,3 @@ struct ContactMemoryGameView: View {
 private let cardRotationDuration = Double(0.45)
 private let gameResetAnimationDuration = Double(0.5)
 private let cardViewPadding = CGFloat(5)
-
-struct ContactMemoryGameView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactMemoryGameView(viewModel: ContactMemoryGameViewModel(difficulty:3))
-    }
-}
