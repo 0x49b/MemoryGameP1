@@ -16,6 +16,8 @@ class ContactMemoryGameViewModel: ObservableObject{
     @Published var loadingContacts: Bool = false
     var difficulty = 0
     var setPoints: ((Int) -> Void)
+    @Published private var contactImg: [UIImage] = [UIImage]()
+    let dispatchGroup = DispatchGroup()
     
     
     
@@ -28,62 +30,53 @@ class ContactMemoryGameViewModel: ObservableObject{
     
     // developer.apple.com/documentation/contacts
     // https://medium.com/better-programming/build-a-swiftui-contacts-search-application-d41b414fe046
-    public func createMemoryGame(difficulty: Int)->MemoryGameModel<UIImage>{
+    public func createMemoryGame(difficulty: Int){
         
         loadingContacts = true
+        self.contactImg.removeAll()
+        print("difficulty set to ", difficulty)
         
         let contactStore = CNContactStore()
-        let dispatchGroup = DispatchGroup()
-        var contactImg: [UIImage] = [UIImage]()
-        
-        contactStore.requestAccess(for: .contacts) { (granted, error) in
-            if let error = error {
-                print("failed to request access", error)
-                return
-            }
-            
-            
-            if granted {
-                let request = CNContactFetchRequest(keysToFetch: [CNContactImageDataKey as CNKeyDescriptor])
-                
-                request.sortOrder = .givenName
-                
-                do {
-                    try contactStore.enumerateContacts(with: request, usingBlock: { (contact, stopPointer) in
-                        
-                        DispatchQueue.global(qos: .userInitiated).async {
-                            if let imageData = contact.imageData{
-                                dispatchGroup.enter()
-                                DispatchQueue.main.async {
-                                    contactImg.append(UIImage(data: imageData) ?? UIImage())
-                                    print("found a profile photo")
-                                    dispatchGroup.leave()
-                                }
-                            }
+        let request = CNContactFetchRequest(keysToFetch: [CNContactImageDataKey as CNKeyDescriptor])
+
+        do {
+            try contactStore.enumerateContacts(with: request, usingBlock: { (contact, stopPointer) in
+
+                DispatchQueue.global(qos: .userInitiated).async {
+                    if let imageData = contact.imageData{
+                        self.dispatchGroup.enter()
+                        DispatchQueue.main.async {
+                            self.contactImg.append(UIImage(data: imageData) ?? UIImage())
+                            print("added photo \(imageData)")
+                            self.dispatchGroup.leave()
                         }
-                    })
-                    
-                } catch let error {
-                    print("Failed to enumerate contact", error)
-                }
-                
-                dispatchGroup.notify(queue: .main) {
-                    var max = difficulty
-                    if(difficulty>contactImg.count){
-                        print("to less images on contacts, changing max")
-                        max = contactImg.count
+                        print("contactImageCount1 \(self.contactImg.count)")
                     }
-                    //use the found contacts as cards
-                    self.model = MemoryGameModel<UIImage>(numberOfPairsOfCards: max, cardContentFactory: { pairIndex in
-                        return contactImg[pairIndex]
-                    })
                 }
-            }
+            })
+
+        } catch let error {
+            print("Failed to enumerate contact \(error)")
         }
-        
-        loadingContacts = false
-        
-        return model
+
+        print("contactImageCount \(self.contactImg.count)")
+
+        dispatchGroup.notify(queue: .main) {
+            var max = difficulty
+            var pairIndexNumbers = [Int]()
+            for i in 0..<difficulty{
+                pairIndexNumbers.append(i)
+            }
+            if(difficulty>self.contactImg.count){
+                print("to less images on contacts, changing max. new max is \(self.contactImg.count) [old \(difficulty)]")
+                max = self.contactImg.count
+            }
+            //use the found contacts as cards
+            self.model = MemoryGameModel<UIImage>(numberOfPairsOfCards: max, cardContentFactory: { pairIndex in
+                return self.contactImg[pairIndexNumbers[pairIndex]]
+            })
+        }
+        self.loadingContacts = false
     }
     
     // MARK: - Access to the Model
@@ -99,7 +92,7 @@ class ContactMemoryGameViewModel: ObservableObject{
     }
     
     func resetGame(){
-        model = self.createMemoryGame(difficulty:difficulty)
+        self.createMemoryGame(difficulty:difficulty)
     }
     
     func gameFinished(){
