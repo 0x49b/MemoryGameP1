@@ -17,7 +17,7 @@ struct SettingsView: View {
     @State var difficulty = 1
     @State var points = 0
     
-      
+    
     var body: some View {
         
         NavigationView{
@@ -166,8 +166,7 @@ struct SettingsView: View {
                     VStack{
                         NavigationLink(
                             destination:
-                                    //EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel()),
-                                    setGameView(),
+                                setGameView(),
                             label: {
                                 VStack{
                                     Text("START_GAME")
@@ -176,7 +175,6 @@ struct SettingsView: View {
                                 }.padding(7)
                             }
                         )
-                        
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.black, lineWidth: 1)
@@ -219,6 +217,7 @@ struct SettingsView: View {
         return 0
     }
     
+    
     @ViewBuilder
     private func setGameView()->some View{
         if( self.gameModel == 0){
@@ -226,7 +225,7 @@ struct SettingsView: View {
         }else if(self.gameModel == 1){
             ContactMemoryGameView(viewModel: ContactMemoryGameViewModel(difficulty: numbersOfItems()))
         }else if(self.gameModel == 2){
-            UnsplashMemoryGameView()
+            UnsplashMemoryGameView(viewModel: UnsplashMemoryGameViewModel(difficulty: numbersOfItems()))
         }
     }
     

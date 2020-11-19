@@ -3,7 +3,8 @@ import Foundation
 struct MemoryGameModel<CardContent> where CardContent: Equatable{
     
     private(set) var cards: Array<Card>
-    var points = 0
+    var points = UserDefaults.standard.integer(forKey: "points")
+    
     
     private var indexOfFaceUpCard: Int?{
         get{

@@ -4,7 +4,7 @@ import SwiftUI
 class EmojiMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<String>
-    @Published private var points: Int
+    @State var points = UserDefaults.standard.integer(forKey: "points")
     var difficulty = 0
     
     init(difficulty: Int) {

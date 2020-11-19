@@ -5,6 +5,7 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGameViewModel
     @State var showingSettings = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State var points = UserDefaults.standard.integer(forKey: "points")
     
     
     var body: some View {
@@ -44,7 +45,7 @@ struct EmojiMemoryGameView: View {
                 
                 HStack{
                     Text("POINTS_LABEL")
-                    Text(String(self.viewModel.getPoints()))
+                    Text(String(points))
                 }.foregroundColor(.black)
             }
         }

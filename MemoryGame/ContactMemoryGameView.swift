@@ -5,11 +5,19 @@ struct ContactMemoryGameView: View {
     @ObservedObject var viewModel: ContactMemoryGameViewModel
     @State var showingSettings = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State var loading: Bool = false
     
     var body: some View {
         VStack{
+            
+
+            if(viewModel.loadingContacts){
+                Text("loading contacts")
+            } else {
+            
+            
             Grid(viewModel.cards) { card in
-                CardView(card: card).onTapGesture {
+                ImageCardView(card: card).onTapGesture {
                     withAnimation(.linear(duration: cardRotationDuration)){
                         viewModel.choose(card: card)
                     }
@@ -46,6 +54,9 @@ struct ContactMemoryGameView: View {
                     Text(String(self.viewModel.getPoints()))
                 }.foregroundColor(.black)
             }
+        
+        }
+        
         }
         .foregroundColor(Color.blue)
         
