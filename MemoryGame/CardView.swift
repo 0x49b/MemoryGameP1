@@ -61,11 +61,3 @@ struct CardView: View{
     private let contentRotationDuration = Double(1)
     
 }
-
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        let game = EmojiMemoryGameViewModel(difficulty: 3)
-        game.choose(card: game.cards[0])
-        return CardView(card: game.cards[0])
-    }
-}

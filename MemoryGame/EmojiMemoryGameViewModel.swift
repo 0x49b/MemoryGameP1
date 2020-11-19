@@ -7,10 +7,13 @@ class EmojiMemoryGameViewModel: ObservableObject{
     @State var points = UserDefaults.standard.integer(forKey: "points")
     var difficulty = 0
     let defaults = UserDefaults.standard
+    var setPoints: ((Int) -> Void)
+
     
-    init(difficulty: Int) {
+    init(difficulty: Int, setPoints: @escaping ((Int) -> Void)) {
         model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: difficulty)
         points = 0
+        self.setPoints = setPoints
         self.difficulty = difficulty
     }
     
@@ -64,6 +67,7 @@ class EmojiMemoryGameViewModel: ObservableObject{
             self.points = model.getPoints()
             self.defaults.set(self.points, forKey: "points")
             setHighscore()
+            self.setPoints(self.points)
         }
         
     }
