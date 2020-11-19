@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State var gameModel = 0
     @State var difficulty = 1
     @State var points = 0
+    let defaults = UserDefaults.standard
     
     
     var body: some View {
@@ -26,7 +27,12 @@ struct SettingsView: View {
                 
                 VStack{
                     Text("POINTS_LABEL").font(.system(size:45))
-                    Text(String(self.points)).font(.system(size: 55))
+                    Text(String(defaults.integer(forKey: "points"))).font(.system(size: 55))
+                    
+                    HStack{
+                        Text("Highscore: ")
+                        Text(String(defaults.integer(forKey: "highscore")))
+                    }.font(.system(size:25))
                 }
                 
                 VStack{

@@ -33,6 +33,7 @@ class UnsplashMemoryGameViewModel: ObservableObject{
         return MemoryGameModel<UIImage>(numberOfPairsOfCards: 0, cardContentFactory: { pairIndex in return UIImage() })
     }
     
+    //https://www.hackingwithswift.com/forums/swiftui/loading-images/3292
     func loadUnsplashImages(difficulty: Int){
         
         loadingImages = true

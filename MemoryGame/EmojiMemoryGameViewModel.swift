@@ -6,6 +6,7 @@ class EmojiMemoryGameViewModel: ObservableObject{
     @Published private var model: MemoryGameModel<String>
     @State var points = UserDefaults.standard.integer(forKey: "points")
     var difficulty = 0
+    let defaults = UserDefaults.standard
     
     init(difficulty: Int) {
         model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: difficulty)
@@ -44,6 +45,7 @@ class EmojiMemoryGameViewModel: ObservableObject{
     }
     
     func resetGame(){
+        self.defaults.set(0, forKey: "points")
         model = EmojiMemoryGameViewModel.createMemoryGame(difficulty: self.difficulty)
     }
     
@@ -60,13 +62,21 @@ class EmojiMemoryGameViewModel: ObservableObject{
         if( matched == cardcount){
             print("all matched, game finished")
             self.points = model.getPoints()
-            
+            self.defaults.set(self.points, forKey: "points")
+            setHighscore()
         }
         
     }
             
     func getPoints()->Int{
         return model.getPoints()
+    }
+    
+    func setHighscore(){
+        let highscore = self.defaults.integer(forKey: "highscore")
+        if(self.points > highscore){
+            self.defaults.set(self.points, forKey: "highscore")
+        }
     }
     
     
