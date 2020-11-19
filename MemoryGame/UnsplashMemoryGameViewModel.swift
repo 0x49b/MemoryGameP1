@@ -31,9 +31,9 @@ class UnsplashMemoryGameViewModel: ObservableObject{
         self.setPoints = setPoints
     }
     
-    private static func createMemoryGame(difficulty: Int)->MemoryGameModel<UIImage>{
-        return MemoryGameModel<UIImage>(numberOfPairsOfCards: 0, cardContentFactory: { pairIndex in return UIImage() })
-    }
+    // private static func createMemoryGame(difficulty: Int)->MemoryGameModel<Image>{
+    //     return MemoryGameModel<Image>(numberOfPairsOfCards: 0, cardContentFactory: { pairIndex in return Image[]() })
+    // }
     
     //https://www.hackingwithswift.com/forums/swiftui/loading-images/3292
     func loadUnsplashImages(difficulty: Int){
@@ -70,10 +70,10 @@ class UnsplashMemoryGameViewModel: ObservableObject{
             
             print("imageCount \(self.unsplashImages.count)")
             
-            model = MemoryGameModel<UIImage>(numberOfPairsOfCards: difficulty, cardContentFactory: { pairIndex in
-                return self.unsplashImages[pairIndex]
+            // model = MemoryGameModel<UIImage>(numberOfPairsOfCards: difficulty, cardContentFactory: { pairIndex in
+                // return self.unsplashImages[pairIndex]
                 
-            })
+            // })
             loadingImages = false
         }
         
