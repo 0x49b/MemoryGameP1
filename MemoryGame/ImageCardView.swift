@@ -42,7 +42,8 @@ struct ImageCardView: View{
                 
                 Image(uiImage: card.content)
                     .resizable()
-                    cornerRadius(50)
+                    .cornerRadius(50)
+                
             }
             .cardify(isFaceUp: card.isFaceUp)
             .transition(.scale)
