@@ -15,7 +15,7 @@ struct SettingsView: View {
     @State var showInfo = false
     @State var gameModel = 0
     @State var difficulty = 1
-    @State var points = 0
+    @State var points = UserDefaults.standard.integer(forKey: "points")
     let defaults = UserDefaults.standard
     
     
