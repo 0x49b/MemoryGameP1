@@ -15,8 +15,9 @@ struct SettingsView: View {
     @State var showInfo = false
     @State var gameModel = 0
     @State var difficulty = 1
-    @State var points = UserDefaults.standard.integer(forKey: "points")
     let defaults = UserDefaults.standard
+    @State var points = UserDefaults.standard.integer(forKey: "points")
+    @State var highscore = UserDefaults.standard.integer(forKey: "highscore")
     
     
     var body: some View {
@@ -27,11 +28,11 @@ struct SettingsView: View {
                 
                 VStack{
                     Text("POINTS_LABEL").font(.system(size:45))
-                    Text(String(defaults.integer(forKey: "points"))).font(.system(size: 55))
+                    Text("\(self.points)").font(.system(size: 55))
                     
                     HStack{
                         Text("Highscore: ")
-                        Text(String(defaults.integer(forKey: "highscore")))
+                        Text("\(self.highscore)")
                     }.font(.system(size:25))
                 }
                 
@@ -205,8 +206,11 @@ struct SettingsView: View {
     }
     
     func setPoints (points: Int) -> Void {
-        if (points > self.points) {
-            self.points = points
+        self.points = points
+        defaults.set(points, forKey: "points")
+        if (points > self.highscore) {
+            self.highscore = points
+            defaults.set(points, forKey: "highscore")
         }
     }
     
@@ -234,7 +238,7 @@ struct SettingsView: View {
     private func setGameView()->some View{
         let highScore: ((Int) -> Void) = setPoints
         if( self.gameModel == 0){
-            EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel(difficulty: numbersOfItems(), setPoints: highScore))
+            EmojiMemoryGameView(viewModel: EmojiMemoryGameViewModel(difficulty: numbersOfItems(), setHighscore: highScore))
         }else if(self.gameModel == 1){
             ContactMemoryGameView(viewModel: ContactMemoryGameViewModel(difficulty: numbersOfItems(), setPoints: highScore))
         }else if(self.gameModel == 2){
