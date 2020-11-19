@@ -76,10 +76,3 @@ struct UnsplashMemoryGameView: View {
 private let cardRotationDuration = Double(0.45)
 private let gameResetAnimationDuration = Double(0.5)
 private let cardViewPadding = CGFloat(5)
-
-
-struct UnsplashMemoryGameView_Previews: PreviewProvider {
-    static var previews: some View {
-        UnsplashMemoryGameView(viewModel: UnsplashMemoryGameViewModel(difficulty: 2))
-    }
-}
