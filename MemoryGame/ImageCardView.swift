@@ -42,6 +42,7 @@ struct ImageCardView: View{
                 
                 Image(uiImage: card.content)
                     .resizable()
+                    .frame(width: fontSize(for: size), height: fontSize(for: size))
                     cornerRadius(50)
             }
             .cardify(isFaceUp: card.isFaceUp)

@@ -13,7 +13,7 @@ class ContactMemoryGameViewModel: ObservableObject{
     
     @Published private var model: MemoryGameModel<UIImage>
     @Published private var points: Int
-    @Published var loadingContacts: Bool = false
+    @State var loadingContacts: Bool = false
     var difficulty = 0
     var setPoints: ((Int) -> Void)
     @Published private var contactImg: [UIImage] = [UIImage]()
