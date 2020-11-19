@@ -40,20 +40,30 @@ class UnsplashMemoryGameViewModel: ObservableObject{
     func loadUnsplashImages(difficulty: Int){
         
         loadingImages = true
+        unsplashImages.removeAll()
         
-        if let imageURL = URL(string: "\(self.unsplashBaseUrl)\(self.clientID)&count=\(String(difficulty))"){
+        let composedURL = "\(self.unsplashBaseUrl)\(self.clientID)&count=\(String(difficulty))"
+        print(composedURL)
+        if let imageURL = URL(string: composedURL){
             
             self.dispatchGroup.enter()
             URLSession.shared.dataTask(with: imageURL){ (data, response, error) in
                 if let data = data {
                     do{
-                        for image in 0..<difficulty{
+                        for i in 0..<difficulty{
+                            
+                            print(i)
+                            
                             self.dispatchGroup.enter()
                             let resp = try JSONDecoder().decode([UnsplashImages].self, from: data)
-                            let imageURL = URL(string: resp[image].urls["small"]!)
-                            if let imageURL = imageURL{
+                            let imageURL_ = URL(string: resp[i].urls["small"]!)
+                            
+                            print(imageURL_?.absoluteURL)
+                            
+                            if let imageLocation = imageURL_{
+                                print(imageLocation)
                                 DispatchQueue.global(qos: .userInitiated).async {
-                                    if let image = try? Data(contentsOf: imageURL){
+                                    if let image = try? Data(contentsOf: imageLocation){
                                         DispatchQueue.main.async {
                                             self.unsplashImages.append(UIImage(data: image)!)
                                             self.dispatchGroup.leave()
@@ -68,15 +78,23 @@ class UnsplashMemoryGameViewModel: ObservableObject{
                     }
                 }
             }.resume()
+        }
+            
             
             print("imageCount \(self.unsplashImages.count)")
             
-            model = MemoryGameModel<UIImage>(numberOfPairsOfCards: difficulty, cardContentFactory: { pairIndex in
-                return self.unsplashImages[pairIndex]
+            dispatchGroup.notify(queue: .main){[self] in
+                print("imageCount \(self.unsplashImages.count)")
                 
-            })
-            loadingImages = false
-        }
+                model = MemoryGameModel<UIImage>(numberOfPairsOfCards: difficulty, cardContentFactory: { pairIndex in
+                    print(pairIndex)
+                    return self.unsplashImages[pairIndex]
+                    
+                })
+                loadingImages = false
+            }
+
+        
         
     }
     
@@ -93,7 +111,7 @@ class UnsplashMemoryGameViewModel: ObservableObject{
     }
     
     func resetGame(){
-        print("call for reset game")
+        print("call for reset game. difficulty \(difficulty)")
         self.loadUnsplashImages(difficulty: self.difficulty)
     }
     

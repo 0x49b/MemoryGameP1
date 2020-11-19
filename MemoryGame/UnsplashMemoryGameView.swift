@@ -65,8 +65,10 @@ struct UnsplashMemoryGameView: View {
             }
             
         }
+        .onAppear{
+            self.viewModel.loadUnsplashImages(difficulty: self.viewModel.difficulty)
+        }
         .foregroundColor(Color.blue)
-        
         .navigationBarHidden(true)
         .navigationBarTitle("")
     }

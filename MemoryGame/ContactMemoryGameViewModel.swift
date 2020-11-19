@@ -72,11 +72,14 @@ class ContactMemoryGameViewModel: ObservableObject{
                 max = self.contactImg.count
             }
             //use the found contacts as cards
+            
             self.model = MemoryGameModel<UIImage>(numberOfPairsOfCards: max, cardContentFactory: { pairIndex in
                 return self.contactImg[pairIndexNumbers[pairIndex]]
             })
         }
+        
         self.loadingContacts = false
+        
     }
     
     // MARK: - Access to the Model
