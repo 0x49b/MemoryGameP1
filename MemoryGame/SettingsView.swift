@@ -205,7 +205,9 @@ struct SettingsView: View {
     }
     
     func setPoints (points: Int) -> Void {
-        self.points = points
+        if (points > self.points) {
+            self.points = points
+        }
     }
     
     
